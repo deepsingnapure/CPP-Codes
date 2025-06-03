@@ -1,0 +1,46 @@
+class Solution {
+public:
+    ListNode* mergeTwolists(ListNode* list1, ListNode* list2){
+        ListNode* dummyNode = new ListNode(-1);
+        ListNode* temp = dummyNode;
+        
+        while(list1 != NULL && list2 != NULL){
+            if(list1->val < list2->val){
+                temp->next = list1;
+                list1 = list1->next;
+            } else {
+                temp->next = list2;
+                list2 = list2->next;
+            }
+            temp = temp->next;
+        }
+        
+        if(list1) temp->next = list1;
+        else temp->next = list2;
+
+        return dummyNode->next;
+    }
+
+    ListNode* sortList(ListNode* head){
+        if(head == NULL || head->next == NULL) return head;
+
+        // Find the middle using slow and fast pointers
+        ListNode* slow = head;
+        ListNode* fast = head;
+        ListNode* prev = NULL;
+
+        while(fast != NULL && fast->next != NULL){
+            prev = slow;
+            slow = slow->next;
+            fast = fast->next->next;
+        }
+
+        // Break the list into two halves
+        prev->next = NULL;
+
+        ListNode* left = sortList(head);
+        ListNode* right = sortList(slow);
+
+        return mergeTwolists(left, right);
+    }
+};
