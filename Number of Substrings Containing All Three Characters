@@ -1,0 +1,16 @@
+class Solution {
+public:
+    int numberOfSubstrings(string s) {
+        vector<int> lastSeen(3,0);
+        int cnt = 0,l=0;
+        for(int r=0;r<s.length();++r){
+            lastSeen[s[r]-'a']++;
+            while(lastSeen[0]>0 && lastSeen[1]>0 && lastSeen[2]>0){
+                cnt += s.length() - r;
+                lastSeen[s[l]-'a']--;
+                l++;
+            }
+        }
+        return cnt;
+    }
+};
