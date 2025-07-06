@@ -1,0 +1,19 @@
+class Solution {
+public:
+    int maxDifference(string s) {
+        unordered_map<char,int> freq;
+        for(char i:s){
+            freq[i]++;
+        }
+        int odd=0,even=INT_MAX;
+        for(auto& [ch,c]:freq){
+            if(c%2==0){
+                even = min(even,c);
+            }
+            else if(c%2==1){
+                odd = max(odd,c);
+            }
+        }
+        return odd-even;
+    }
+};
