@@ -1,0 +1,35 @@
+class Solution {
+public:
+    bool isValid(string word) {
+        int n = word.length();
+        int consonant = 0;
+        string vowels ="aeiouAEIOU";
+        int vow=0;
+        if(n < 3)
+        {
+            return false;;
+        }
+
+        for(char c:word)
+        {
+            if(!isalnum(c))
+            {
+            return false;
+            }
+            if(isalpha(c))
+            {
+                
+                char lower = tolower(c);
+                if(lower == 'a' || lower == 'e' || lower=='i' || lower=='o' || lower=='u')
+                    vow++;
+                else
+                {
+                    consonant++;
+                }
+            }
+            
+            
+        }
+        return vow>=1 && consonant>=1;
+    }
+};
