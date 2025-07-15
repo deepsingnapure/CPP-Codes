@@ -1,0 +1,44 @@
+/*  Tree node
+struct Node
+{
+    int data;
+    Node* left, * right;
+}; */
+
+// Should return true if tree is Sum Tree, else false
+class Solution {
+  public:
+    pair<bool, int> isSumTreeFast(Node* root) {
+        // Base case: null node
+        if (root == NULL) {
+            return {true, 0};
+        }
+
+        // Base case: leaf node
+        if (root->left == NULL && root->right == NULL) {
+            return {true, root->data};
+        }
+
+        // Recursive calls
+        pair<bool, int> leftAns = isSumTreeFast(root->left);
+        pair<bool, int> rightAns = isSumTreeFast(root->right);
+
+        bool isLeftSumTree = leftAns.first;
+        bool isRightSumTree = rightAns.first;
+
+        int leftSum = leftAns.second;
+        int rightSum = rightAns.second;
+
+        // Check if current node's value is equal to sum of left and right
+        bool currentNodeCheck = (root->data == leftSum + rightSum);
+
+        // Final result for this subtree
+        bool isSumTree = isLeftSumTree && isRightSumTree && currentNodeCheck;
+
+        return {isSumTree, root->data + leftSum + rightSum};
+    }
+
+    bool isSumTree(Node* root) {
+        return isSumTreeFast(root).first;
+    }
+};
