@@ -1,0 +1,26 @@
+class Solution {
+public:
+    int maximumLength(vector<int>& nums, int k) {
+        int n = nums.size();
+        int ans = 0;
+
+        // dp[mod][val] = longest subsequence ending with val, with mod value
+        unordered_map<int, unordered_map<int, int>> dp;
+
+        for (int num : nums) {
+            
+            int best = 1; // start new subsequence
+
+            for (auto& [prev_val, length] : dp[(2 * num) % k]) {
+                best = max(best, length + 1);
+            }
+
+            // Update the dp table
+            dp[(2 * num) % k][num] = best;
+
+            ans = max(ans, best);
+        }
+
+        return ans;
+    }
+};
