@@ -1,0 +1,27 @@
+class Solution {
+public:
+    int totalFruit(vector<int>& fruits) {
+        const int n=fruits.size();
+        int freq[100001] = {0};
+        int cnt=0,bascket=0,ans=0;
+        
+        for(int l=0,r=0; r<n;r++)
+        {
+            if(++freq[fruits[r]] == 1)
+            
+                bascket++;
+                cnt++;
+                while(bascket > 2)
+                {
+                    if(--freq[fruits[l]] == 0)
+                        bascket--;
+                        cnt--;
+                        l++;
+                    
+                }
+                ans = max(ans,cnt);
+            
+        }
+        return ans;
+    }
+};
